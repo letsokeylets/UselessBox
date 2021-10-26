@@ -6,11 +6,12 @@ package org.example;
 public class Main {
     public static void main(String[] args) {
         UselessBox uselessBox = new UselessBox();
-        Thread user = new Thread(uselessBox::onSwitch, "Пользователь");
-        Thread toy = new Thread(uselessBox::offSwitch, "Игрушка");
+        Thread user = new Thread(uselessBox::onTumbler, "Пользователь");
+        Thread toy = new Thread(uselessBox::offTumbler, "Игрушка");
         user.start();
         toy.start();
         while (true) {
+            //Как только поток пользователя завершил выполнение - необходимо остановить и игрушку
             if (user.isInterrupted()) {
                 toy.interrupt();
                 System.out.println("Поток " + toy.getName() + " остановлен");
